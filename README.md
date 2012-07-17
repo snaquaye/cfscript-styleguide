@@ -23,7 +23,7 @@ Do not use hungarian notation. Favor `notes` over `arrNotes` and `redButton` ove
 Variables that will only contain a boolean should begin with is or the plural form has such as `isActive` or `hasItems`.
 
 ###Scope Variables
-ColdFusion has several scopes like other languages built for the web such as `application`, `session`, `url`, `form`, `cgi`, and `cookie`. It might seem to make sense to capitalize these special scope variables to make them stand out, but given that ColdFusion is case insensetive, we use lowercase to save time, especially given that references to `application` and `session` can be quite common. Do not use the arguments scope. Variables that exist in the arguments scope will be found without referencing their scope directly, and the omission of direct references to the arguments scope keeps the syntax consistent with other languages and enhances code brevity.
+ColdFusion has several scopes like other languages built for the web such as `application`, `session`, `url`, `form`, `cgi`, and `cookie`. It might seem to make sense to capitalize these special scope variables to make them stand out, but given that ColdFusion is case insensitive, we use lowercase to save time, especially given that references to `application` and `session` can be quite common. Do not use the arguments scope. Variables that exist in the arguments scope will be found without referencing their scope directly, and the omission of direct references to the arguments scope keeps the syntax consistent with other languages and enhances code brevity.
 
 ##Functions
 
@@ -81,6 +81,22 @@ while (!found) {
 }
 ```
 
+It is necessary to use tag syntax when looping through items in markup. It's possible in ColdFusion to loop through a query object but the property references do not reference the containing query object or the iteration level.
+
+```
+<cfloop query="myQuery">
+    <cfoutput>#column#</cfoutput>
+</cfloop>
+```
+
+This can be confusing and sometimes there is a need to refactor a query object loop into an array-of-structs loop. Therefore, a query object should always be looped through as an array index of rows up to the recordcount in order to keep track of the iteration count and containing object.
+
+```
+<cfloop index="#i#" from="1" to="#myQuery.recordcount#">
+    <cfoutput>#myQuery.column[i]#</cfoutput>
+</cfloop>
+```
+
 ##Formatting
 
 ###Indentation
@@ -109,7 +125,7 @@ var foobar = 53; // a foobar
 ```
 
 ###Functions
-Comments should appear at the top of each function or method. Use a style similar to javadocs but with the @hint line declaring the a description of the function since ColdFusion recognizes the hint attribute internally as the function description. A function (hint) should always begin with a plural verb.
+Comments should appear at the top of each function or method. Use a style similar to javadocs but with the @hint line declaring the a description of the function since ColdFusion recognizes the hint attribute internally as the function description. A function hint should always begin with a plural verb.
 
 ```
 /**
@@ -135,7 +151,7 @@ public array function queryToArrayOfStructs(required query q) {
 ```
 
 ##Custom Tags
-Do not ever use custom tags. Porting them between projects requires unnecessary overhead and their functionality should almost always be built into custom reusable components instead.
+Do not ever use custom tags. Porting them between projects requires unnecessary overhead and their functionality should almost always be built into reusable components instead.
 
 
 
