@@ -33,7 +33,7 @@ ColdFusion has several scopes like other languages built for the web such as `ap
 Function names should be verbs.
 
 ###General
-A function declaration should specify the accessibility and return type before the function name, mostly for purposes of documentation. There should always be a space before the first curly brace and it should be on the same link of the function declaration. Likewise each argument should always specificy it's type and requiredness.
+A function declaration should specify the accessibility and return type before the function name, mostly for purposes of documentation. There should always be a space before the first curly brace and it should be on the same line of the function declaration. Likewise each argument should always specificy it's type and requiredness.
 
 ```javascript
 private void function myFunction(required array arr) {
@@ -123,7 +123,7 @@ var html = '<div class="red"></div>';
 Comment your code well, but there's no need to go crazy. Good code should be able to be understood without a comment describing each line. Comments should appear as a short, correctly formatted sentence above the block of code it references. Periods are optional but capitalization is encouraged.
 
 ```javascript
-// Delete the user information from the session
+// Remove the current user's information from the session
 structDelete(session, "currentUser");
 ```
 Comments can occasionally appear at the end of the line to describe variable declarations, loops, or conditional statements. In this case, the comment would not be capitalized.
