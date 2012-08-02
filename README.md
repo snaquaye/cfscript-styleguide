@@ -24,8 +24,14 @@ Do not use hungarian notation. Favor `notes` over `arrNotes` and `redButton` ove
 
 Variables that will only contain a boolean should begin with is or the plural form has such as `isActive` or `hasErrors`.
 
+Never use example names like `foo`, `bar`, and `baz` in production code.
+
+An I.D. by itself or as part of a compound word is to be referenced with the "d" in lowercase such as `id` and `userId` over `ID` and `userID`.
+
+In all other instances where an abbreviation is part of a variable, the abbreviated letters are to be all uppercase if they are not at the beginning of the variable such as `localURL` or `innerHTML`. On the contrary, abbreviations at the beginning of a variable are to be all lowercase since variables are to start with lowercase such as `htmlEditor`.
+
 ###Scope Variables
-ColdFusion has several scopes like other languages built for the web such as `application`, `session`, `url`, `form`, `cgi`, and `cookie`. It might seem to make sense to capitalize these special scope variables to make them stand out, but given that ColdFusion is case insensitive, use lowercase to save time, especially given that references to `application` and `session` can be quite common. Do not use the arguments scope. Variables that exist in the arguments scope will be found without referencing their scope directly, and the omission of direct references to the arguments scope keeps the syntax consistent with other languages and enhances code brevity.
+ColdFusion has several built-in scopes such as `application`, `session`, `url`, `form`, `cgi`, and `cookie`. It might seem to make sense to capitalize these special scope variables to make them stand out, but given that ColdFusion is case insensitive, use lowercase to save time, especially given that references to `application` and `session` can be quite common. Do not use the arguments scope. Variables that exist in the arguments scope will be found without referencing their scope directly, and the omission of direct references to the arguments scope keeps the syntax consistent with other languages and enhances code brevity.
 
 ##Functions
 
@@ -33,13 +39,15 @@ ColdFusion has several scopes like other languages built for the web such as `ap
 Function names should be verbs.
 
 ###General
-A function declaration should specify the accessibility and return type before the function name, mostly for purposes of documentation. There should always be a space before the first curly brace and it should be on the same line of the function declaration. Likewise each argument should always specificy it's type and requiredness.
+A function declaration should specify the accessibility and return type before the function name, if not only for purpose of documentation. There should always be a space before the first curly brace and it should be on the same line of the function declaration. Each parameter should always specify it's type and whether or not it is required. Favor required parameters over optional parameters but set defaults for optional parameters if necessary. Do not use or rely on named arguments in function calls or function declarations.
 
 ```javascript
 private void function myFunction(required array arr) {
     
 }
 ```
+
+The order of function or methods in a component should be as follows: constructor (init), remote, public, protected, private. Use remote functions at your own risk. Favor exposing the actions of remote function over RESTful HTTP instead of direct remote function access.
 
 ###Built-in Functions
 You will see in the ColdFusion documentation the global that the built-in ColdFusion functions are PascalCase. This is meant to differentiate the built-in functions from user-defined functions. This is wrong. PascalCase is for classes, components, and possibly modules, but never for functions.
@@ -133,7 +141,7 @@ var foobar = 53; // a foobar
 ```
 
 ###Functions
-Comments should appear at the top of each function or method. Use a style similar to javadocs but with the @hint line declaring the a description of the function since ColdFusion recognizes the hint attribute internally as the function description. A function hint should always begin with a plural verb.
+Comments should appear at the top of each function or method. Use a style similar to javadocs but with the @hint line declaring the a description of the function since ColdFusion recognizes the hint attribute internally as the function description. Do not specify the @displayName attribute since this is too often a redundant copy of the function name. A function hint should always begin with a plural verb.
 
 ```javascript
 /**
